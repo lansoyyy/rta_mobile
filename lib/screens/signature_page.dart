@@ -70,7 +70,7 @@ class _SignaturePageState extends State<SignaturePage> {
                             ),
                             const SizedBox(height: 10),
                             SizedBox(
-                              height: 593,
+                              height: 550,
                               width: 350,
                               child: Container(
                                 padding: const EdgeInsets.all(16.0),

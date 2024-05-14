@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rta_mobile/screens/issue_a_ticket_screen.dart';
+import 'package:rta_mobile/screens/issue_selection_screen.dart';
 
 class NextScreen extends StatelessWidget {
   const NextScreen({super.key});
@@ -335,7 +336,7 @@ class NextScreen extends StatelessWidget {
                   color: Colors.blue,
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const IssueTicketScreen()));
+                        builder: (context) => const IssueSelectionScreen()));
                   },
                   elevation: 5,
                   child: const Text(
