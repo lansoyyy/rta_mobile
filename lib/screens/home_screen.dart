@@ -1,9 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rta_mobile/screens/next_screen.dart';
+import 'package:rta_mobile/widgets/textfield_widget.dart';
+import 'package:rta_mobile/widgets/toast_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final password = TextEditingController();
+  final username = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 50),
                 // ENFORCER Container
                 Container(
-                  height: 300,
+                  height: 375,
                   width: 300,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -71,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                           fontSize: 24,
                         ),
                       ),
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
@@ -87,21 +97,16 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: TextFormField(
-                                  decoration: const InputDecoration(
-                                    hintText: 'Enforcer Passcode',
-                                    suffixIcon: Icon(Icons.visibility),
-                                  ),
-                                ),
-                              ),
+                            TextFieldWidget(
+                              controller: username,
+                              label: 'Username',
+                            ),
+                            const SizedBox(height: 10),
+                            TextFieldWidget(
+                              isObscure: true,
+                              showEye: true,
+                              controller: password,
+                              label: 'Password',
                             ),
                             const SizedBox(height: 30),
                             MaterialButton(
@@ -112,10 +117,7 @@ class HomeScreen extends StatelessWidget {
                               height: 50,
                               color: Colors.blue,
                               onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => const NextScreen()),
-                                );
+                                login(context);
                               },
                               child: const Text(
                                 'ENTER',
@@ -139,5 +141,30 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  login(context) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: '${username.text}@rta.com', password: password.text);
+      showToast('Logged in succesfully!');
+
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const NextScreen()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        showToast("No user found with that email.");
+      } else if (e.code == 'wrong-password') {
+        showToast("Wrong password provided for that user.");
+      } else if (e.code == 'invalid-email') {
+        showToast("Invalid email provided.");
+      } else if (e.code == 'user-disabled') {
+        showToast("User account has been disabled.");
+      } else {
+        showToast("An error occurred: ${e.message}");
+      }
+    } on Exception catch (e) {
+      showToast("An error occurred: $e");
+    }
   }
 }
