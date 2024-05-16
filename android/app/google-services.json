@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "635736180770",
+    "project_id": "thesis-rta",
+    "storage_bucket": "thesis-rta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635736180770:android:5312c9de598b7a8ecd227b",
+        "android_client_info": {
+          "package_name": "com.example.rta_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvJjv3lX64jVfBSqhHDoB4v3vTjWbAclk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
