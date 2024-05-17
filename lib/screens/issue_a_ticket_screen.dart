@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:rta_mobile/screens/signature_page.dart';
+import 'package:rta_mobile/widgets/textfield_widget.dart';
 
-class IssueTicketScreen extends StatelessWidget {
+class IssueTicketScreen extends StatefulWidget {
   const IssueTicketScreen({super.key});
 
+  @override
+  State<IssueTicketScreen> createState() => _IssueTicketScreenState();
+}
+
+class _IssueTicketScreenState extends State<IssueTicketScreen> {
+  final name = TextEditingController();
+  final address = TextEditingController();
+  final license = TextEditingController();
+  final expiry = TextEditingController();
+  final bday = TextEditingController();
+  final nationality = TextEditingController();
+  final height = TextEditingController();
+  final weight = TextEditingController();
+  final gender = TextEditingController();
+
+  final plateno = TextEditingController();
+  final owner = TextEditingController();
+  final owneraddress = TextEditingController();
+  final maker = TextEditingController();
+  final model = TextEditingController();
+  final color = TextEditingController();
+  final number = TextEditingController();
+  String _selectedOption = 'Prof';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -276,686 +300,154 @@ class IssueTicketScreen extends StatelessWidget {
 //VIOLATOR INFORMATION
                       Container(
                         alignment: Alignment.topCenter,
-                        height: 500,
+                        height: 300,
                         width: 380,
-                        child: Container(
-                          height: 600,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE9E9E9),
-                            border: Border.all(
-                              color: const Color.fromARGB(255, 0, 0, 0),
-                              width: 1,
-                            ),
-                          ),
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: 10, // Adjusted spacing from the top to 10
-                                left: 0, // Adjusted spacing from the left to 0
-                                right:
-                                    0, // Adjusted spacing from the right to 0
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical:
-                                          3), // Optional padding for the inner box
-                                  // Example color
-                                  child: const Center(
-                                    child: Text(
-                                      'VIOLATOR INFORMATION',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
+                        child: SizedBox(
+                          height: 300,
+                          width: double.infinity,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text(
+                                  'VIOLATOR INFORMATION',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ),
-                              const Positioned(
-                                top: 35, // Adjusted spacing from the top to 50
-                                left:
-                                    -10, // Adjusted spacing from the left to 20
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'First Name',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                              ),
-                              Positioned(
-                                top: 40, // Adjusted spacing from the top to 50
-                                left:
-                                    90, // Adjusted spacing from the left to after the right edge of the blue box
-                                child: Container(
-                                  height: 30,
-                                  width: 280,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color:
-                                          const Color.fromARGB(159, 49, 49, 49),
-                                      width: 1,
-                                    ),
-                                  ),
+                                TextFieldWidget(
+                                  width: 325,
+                                  controller: name,
+                                  label: 'Fullname',
                                 ),
-                              ),
-                              const Positioned(
-                                top: 75, // Adjusted spacing from the top to 50
-                                left:
-                                    -4, // Adjusted spacing from the left to 20
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Middle Name',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
+                                TextFieldWidget(
+                                  width: 325,
+                                  controller: address,
+                                  label: 'Address',
                                 ),
-                              ),
-                              Positioned(
-                                top: 80, // Adjusted spacing from the top to 50
-                                left:
-                                    90, // Adjusted spacing from the left to after the right edge of the blue box
-                                child: Container(
-                                  height: 30,
-                                  width: 280,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color:
-                                          const Color.fromARGB(159, 49, 49, 49),
-                                      width: 1,
-                                    ),
-                                  ),
+                                TextFieldWidget(
+                                  width: 325,
+                                  controller: license,
+                                  label: 'License No.',
                                 ),
-                              ),
-                              const Positioned(
-                                top: 115, // Adjusted spacing from the top to 50
-                                left:
-                                    -10, // Adjusted spacing from the left to 20
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Last Name',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top: 120, // Adjusted spacing from the top to 50
-                                left:
-                                    90, // Adjusted spacing from the left to after the right edge of the blue box
-                                child: Container(
-                                  height: 30,
-                                  width: 280,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color:
-                                          const Color.fromARGB(159, 49, 49, 49),
-                                      width: 1,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top: 165, // Adjusted spacing from the top to 50
-                                left:
-                                    60, // Adjusted spacing from the left to after the right edge of the blue box
-                                child: Container(
-                                  height: 0,
-                                  width: 265,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color: const Color.fromARGB(
-                                          255, 112, 112, 112),
-                                      width: 0.5,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const Positioned(
-                                top: 175, // Adjusted spacing from the top to 50
-                                left:
-                                    -10, // Adjusted spacing from the left to 20
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Address    ',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top: 180, // Adjusted spacing from the top to 50
-                                left:
-                                    90, // Adjusted spacing from the left to after the right edge of the blue box
-                                child: Container(
-                                  height: 80,
-                                  width: 280,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color:
-                                          const Color.fromARGB(159, 49, 49, 49),
-                                      width: 1,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top: 275, // Adjusted spacing from the top to 50
-                                left:
-                                    60, // Adjusted spacing from the left to after the right edge of the blue box
-                                child: Container(
-                                  height: 0,
-                                  width: 265,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color: const Color.fromARGB(
-                                          255, 112, 112, 112),
-                                      width: 0.5,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const Positioned(
-                                top: 285, // Adjusted spacing from the top to 50
-                                left:
-                                    -10, // Adjusted spacing from the left to 20
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'License    ',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top: 290, // Adjusted spacing from the top to 50
-                                left:
-                                    90, // Adjusted spacing from the left to after the right edge of the blue box
-                                child: Container(
-                                  height: 30,
-                                  width: 280,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                      color:
-                                          const Color.fromARGB(159, 49, 49, 49),
-                                      width: 1,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const Positioned(
-                                top:
-                                    325, // Adjusted spacing from the top to 325
-                                left:
-                                    -10, // Adjusted spacing from the left to 0
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Expiry       ',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top:
-                                    330, // Adjusted spacing from the top to 320
-                                left:
-                                    90, // Adjusted spacing from the left to 105
-                                child: Row(
-                                  // Row for aligning checkbox and long white box horizontally
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Container(
-                                      height: 30,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              159, 49, 49, 49),
-                                          width: 1,
+                                    TextFieldWidget(
+                                      width: 150,
+                                      controller: expiry,
+                                      label: 'Expiry',
+                                    ),
+                                    TextFieldWidget(
+                                      width: 150,
+                                      controller: gender,
+                                      label: 'Gender',
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 150,
+                                      child: RadioListTile<String>(
+                                        title: const Text(
+                                          'Prof',
+                                          style: TextStyle(
+                                            fontFamily: 'Bold',
+                                          ),
                                         ),
+                                        value: 'Prof',
+                                        groupValue: _selectedOption,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _selectedOption = value!;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 200,
+                                      child: RadioListTile<String>(
+                                        title: const Text(
+                                          'Non Prof',
+                                          style: TextStyle(
+                                            fontFamily: 'Bold',
+                                          ),
+                                        ),
+                                        value: 'Non Prof',
+                                        groupValue: _selectedOption,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _selectedOption = value!;
+                                          });
+                                        },
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                              Positioned(
-                                top:
-                                    335, // Adjusted spacing from the top to 320
-                                left:
-                                    195, // Adjusted spacing from the left to 105
-                                child: Row(
-                                  // Row for aligning checkbox and long white box horizontally
-                                  children: [
-                                    Container(
-                                      height: 20,
-                                      width: 20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              159, 49, 49, 49),
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Positioned(
-                                top:
-                                    325, // Adjusted spacing from the top to 325
-                                left:
-                                    180, // Adjusted spacing from the left to 0
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Prof',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top:
-                                    335, // Adjusted spacing from the top to 320
-                                left:
-                                    245, // Adjusted spacing from the left to 105
-                                child: Row(
-                                  // Row for aligning checkbox and long white box horizontally
-                                  children: [
-                                    Container(
-                                      height: 20,
-                                      width: 20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              159, 49, 49, 49),
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Positioned(
-                                top:
-                                    325, // Adjusted spacing from the top to 325
-                                left:
-                                    245, // Adjusted spacing from the left to 0
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Non-Prof',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top:
-                                    335, // Adjusted spacing from the top to 320
-                                left:
-                                    325, // Adjusted spacing from the left to 105
-                                child: Row(
-                                  // Row for aligning checkbox and long white box horizontally
-                                  children: [
-                                    Container(
-                                      height: 20,
-                                      width: 20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              159, 49, 49, 49),
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Positioned(
-                                top:
-                                    325, // Adjusted spacing from the top to 325
-                                left:
-                                    306, // Adjusted spacing from the left to 0
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
+                                SizedBox(
+                                  child: RadioListTile<String>(
+                                    title: const Text(
                                       'SP',
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Bold',
                                       ),
                                     ),
+                                    value: 'SP',
+                                    groupValue: _selectedOption,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _selectedOption = value!;
+                                      });
+                                    },
                                   ),
                                 ),
-                              ),
-                              const Positioned(
-                                top:
-                                    365, // Adjusted spacing from the top to 325
-                                left: -5, // Adjusted spacing from the left to 0
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Birthday       ',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top:
-                                    370, // Adjusted spacing from the top to 320
-                                left:
-                                    90, // Adjusted spacing from the left to 105
-                                child: Row(
-                                  // Row for aligning checkbox and long white box horizontally
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Container(
-                                      height: 30,
-                                      width: 105,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              159, 49, 49, 49),
-                                          width: 1,
-                                        ),
-                                      ),
+                                    TextFieldWidget(
+                                      width: 150,
+                                      controller: bday,
+                                      label: 'Birthday',
+                                    ),
+                                    TextFieldWidget(
+                                      width: 150,
+                                      controller: nationality,
+                                      label: 'Nationality',
                                     ),
                                   ],
                                 ),
-                              ),
-                              const Positioned(
-                                top:
-                                    365, // Adjusted spacing from the top to 325
-                                left:
-                                    180, // Adjusted spacing from the left to 0
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Nationality',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top:
-                                    370, // Adjusted spacing from the top to 320
-                                left:
-                                    265, // Adjusted spacing from the left to 105
-                                child: Row(
-                                  // Row for aligning checkbox and long white box horizontally
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Container(
-                                      height: 30,
-                                      width: 105,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              159, 49, 49, 49),
-                                          width: 1,
-                                        ),
-                                      ),
+                                    TextFieldWidget(
+                                      width: 150,
+                                      controller: height,
+                                      label: 'Height',
+                                    ),
+                                    TextFieldWidget(
+                                      width: 150,
+                                      controller: weight,
+                                      label: 'Weight',
                                     ),
                                   ],
                                 ),
-                              ),
-                              const Positioned(
-                                top:
-                                    405, // Adjusted spacing from the top to 325
-                                left:
-                                    -20, // Adjusted spacing from the left to 0
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Height',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
+                                const SizedBox(
+                                  height: 20,
                                 ),
-                              ),
-                              Positioned(
-                                top:
-                                    410, // Adjusted spacing from the top to 320
-                                left:
-                                    90, // Adjusted spacing from the left to 105
-                                child: Row(
-                                  // Row for aligning checkbox and long white box horizontally
-                                  children: [
-                                    Container(
-                                      height: 30,
-                                      width: 105,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              159, 49, 49, 49),
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Positioned(
-                                top:
-                                    405, // Adjusted spacing from the top to 325
-                                left:
-                                    170, // Adjusted spacing from the left to 0
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Weight',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top:
-                                    410, // Adjusted spacing from the top to 320
-                                left:
-                                    265, // Adjusted spacing from the left to 105
-                                child: Row(
-                                  // Row for aligning checkbox and long white box horizontally
-                                  children: [
-                                    Container(
-                                      height: 30,
-                                      width: 105,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              159, 49, 49, 49),
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Positioned(
-                                top:
-                                    445, // Adjusted spacing from the top to 325
-                                left:
-                                    -20, // Adjusted spacing from the left to 0
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Gender',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top:
-                                    450, // Adjusted spacing from the top to 320
-                                left:
-                                    90, // Adjusted spacing from the left to 105
-                                child: Row(
-                                  // Row for aligning checkbox and long white box horizontally
-                                  children: [
-                                    Container(
-                                      height: 30,
-                                      width: 105,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              159, 49, 49, 49),
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Positioned(
-                                top:
-                                    445, // Adjusted spacing from the top to 325
-                                left:
-                                    180, // Adjusted spacing from the left to 0
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 100,
-                                  child: Center(
-                                    child: Text(
-                                      'Restriction',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top:
-                                    450, // Adjusted spacing from the top to 320
-                                left:
-                                    265, // Adjusted spacing from the left to 105
-                                child: Row(
-                                  // Row for aligning checkbox and long white box horizontally
-                                  children: [
-                                    Container(
-                                      height: 30,
-                                      width: 105,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          color: const Color.fromARGB(
-                                              159, 49, 49, 49),
-                                          width: 1,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -967,317 +459,65 @@ class IssueTicketScreen extends StatelessWidget {
                         alignment: Alignment.topCenter,
                         height: 490, // Adjusted height of the outer container
                         width: 380,
-                        child: Stack(
-                          alignment: Alignment.topLeft,
-                          children: [
-                            Positioned(
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              bottom:
-                                  0, // Adjusted to occupy the full height of the outer container
-                              child: Container(
-                                // Adjusted height to fill the available space in the Stack
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 236, 234, 234),
-                                  border: Border.all(
-                                    color: const Color.fromARGB(255, 0, 0, 0),
-                                    width: 1,
-                                  ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text(
+                                'VEHICLE INFORMATION',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ),
-                            const Positioned(
-                              top:
-                                  15, // Adjust this value to control the vertical positioning of the text
-                              left: 0,
-                              right: 0,
-                              child: Center(
-                                child: Text(
-                                  'VEHICLE INFORMATION',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                              const SizedBox(
+                                height: 10,
                               ),
-                            ),
-                            const Positioned(
-                              top: 35, // Adjusted spacing from the top to 50
-                              left: 10, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Plate no.',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
+                              TextFieldWidget(
+                                width: 325,
+                                controller: plateno,
+                                label: 'Plate No.',
                               ),
-                            ),
-                            Positioned(
-                              top: 40, // Adjusted spacing from the top to 50
-                              left:
-                                  90, // Adjusted spacing from the left to after the right edge of the blue box
-                              child: Container(
-                                height: 30,
-                                width: 280,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(159, 49, 49, 49),
-                                    width: 1,
-                                  ),
-                                ),
+                              TextFieldWidget(
+                                width: 325,
+                                controller: owner,
+                                label: 'Owner',
                               ),
-                            ),
-                            const Positioned(
-                              top: 75, // Adjusted spacing from the top to 50
-                              left: 10, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Owner',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
+                              TextFieldWidget(
+                                width: 325,
+                                controller: owneraddress,
+                                label: 'Owner Address',
                               ),
-                            ),
-                            Positioned(
-                              top: 80, // Adjusted spacing from the top to 50
-                              left:
-                                  90, // Adjusted spacing from the left to after the right edge of the blue box
-                              child: Container(
-                                height: 30,
-                                width: 280,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(159, 49, 49, 49),
-                                    width: 1,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  TextFieldWidget(
+                                    width: 150,
+                                    controller: maker,
+                                    label: 'Maker',
                                   ),
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: 115, // Adjusted spacing from the top to 50
-                              left: 10, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Address',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                  TextFieldWidget(
+                                    width: 150,
+                                    controller: color,
+                                    label: 'Color',
                                   ),
-                                ),
+                                ],
                               ),
-                            ),
-                            Positioned(
-                              top: 120, // Adjusted spacing from the top to 50
-                              left:
-                                  90, // Adjusted spacing from the left to after the right edge of the blue box
-                              child: Container(
-                                height: 120,
-                                width: 280,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(159, 49, 49, 49),
-                                    width: 1,
-                                  ),
-                                ),
+                              TextFieldWidget(
+                                width: 325,
+                                controller: model,
+                                label: 'Model',
                               ),
-                            ),
-                            const Positioned(
-                              top: 285, // Adjusted spacing from the top to 50
-                              left: 10, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Color',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
+                              const SizedBox(
+                                height: 20,
                               ),
-                            ),
-                            Positioned(
-                              top: 290, // Adjusted spacing from the top to 50
-                              left:
-                                  90, // Adjusted spacing from the left to after the right edge of the blue box
-                              child: Container(
-                                height: 30,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(159, 49, 49, 49),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: 245, // Adjusted spacing from the top to 50
-                              left: 212, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Model',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 250, // Adjusted spacing from the top to 50
-                              left:
-                                  260, // Adjusted spacing from the left to after the right edge of the blue box
-                              child: Container(
-                                height: 30,
-                                width: 110,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(159, 49, 49, 49),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: 245, // Adjusted spacing from the top to 50
-                              left: 10, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Make',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 250, // Adjusted spacing from the top to 50
-                              left:
-                                  90, // Adjusted spacing from the left to after the right edge of the blue box
-                              child: Container(
-                                height: 30,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(159, 49, 49, 49),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: 285, // Adjusted spacing from the top to 50
-                              left: 212, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Marking',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 290, // Adjusted spacing from the top to 50
-                              left:
-                                  260, // Adjusted spacing from the left to after the right edge of the blue box
-                              child: Container(
-                                height: 30,
-                                width: 110,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(159, 49, 49, 49),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: 335, // Adjusted spacing from the top to 50
-                              left: 10, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Place of \nViolation',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 340, // Adjusted spacing from the top to 50
-                              left:
-                                  90, // Adjusted spacing from the left to after the right edge of the blue box
-                              child: Container(
-                                height: 130,
-                                width: 280,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(159, 49, 49, 49),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
 
@@ -1515,7 +755,7 @@ class IssueTicketScreen extends StatelessWidget {
                         ),
                       ),
 
-                      const SizedBox(height: 150),
+                      const SizedBox(height: 50),
 
 //NEXT BUTTON
                       Container(
