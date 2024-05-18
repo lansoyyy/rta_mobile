@@ -101,14 +101,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               controller: username,
                               label: 'Username',
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFieldWidget(
                               isObscure: true,
                               showEye: true,
                               controller: password,
                               label: 'Password',
                             ),
-                            const SizedBox(height: 30),
+                            const SizedBox(height: 15),
                             MaterialButton(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),

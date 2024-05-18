@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:rta_mobile/screens/signature_page.dart';
+import 'package:rta_mobile/widgets/button_widget.dart';
 import 'package:rta_mobile/widgets/textfield_widget.dart';
 
 class IssueTicketScreen extends StatefulWidget {
@@ -28,6 +30,31 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
   final color = TextEditingController();
   final number = TextEditingController();
   String _selectedOption = 'Prof';
+  String selectedViolation = 'Sample 1';
+
+  final List<String> violations = [
+    "Speeding",
+    "Running a red light",
+    "Illegal parking",
+    "Not wearing a seatbelt",
+    "Using a mobile phone while driving",
+    "Driving without a license",
+    "Driving under the influence",
+    "Reckless driving",
+  ];
+
+  // Map to keep track of which violations are selected
+  final Map<String, bool> selectedViolations = {};
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize all violations as not selected
+    for (var violation in violations) {
+      selectedViolations[violation] = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,11 +198,11 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                                       width: 1,
                                     ),
                                   ),
-                                  child: const Center(
+                                  child: Center(
                                     child: Text(
-                                      'TCT 2023 - 00311',
-                                      style: TextStyle(
-                                        fontSize: 15,
+                                      'TCT ${DateTime.now().year} - 00001',
+                                      style: const TextStyle(
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w400,
                                         color: Color.fromARGB(255, 0, 4, 233),
                                       ),
@@ -226,11 +253,11 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                                     ),
                                     color: Colors.white, // Example color
                                   ),
-                                  child: const Center(
+                                  child: Center(
                                     child: Text(
-                                      'Nov 23, 2023',
-                                      style: TextStyle(
-                                        fontSize: 15,
+                                      DateFormat.yMMMd().format(DateTime.now()),
+                                      style: const TextStyle(
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w400,
                                         color: Color.fromARGB(255, 0, 4, 233),
                                       ),
@@ -280,11 +307,11 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                                     ),
                                     color: Colors.white, // Example color
                                   ),
-                                  child: const Center(
+                                  child: Center(
                                     child: Text(
-                                      '1:35pm',
-                                      style: TextStyle(
-                                        fontSize: 15,
+                                      DateFormat.jm().format(DateTime.now()),
+                                      style: const TextStyle(
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w400,
                                         color: Color.fromARGB(255, 0, 4, 233),
                                       ),
@@ -298,494 +325,278 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                       ),
 
 //VIOLATOR INFORMATION
-                      Container(
-                        alignment: Alignment.topCenter,
-                        height: 300,
-                        width: 380,
-                        child: SizedBox(
-                          height: 300,
-                          width: double.infinity,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 10,
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        'VIOLATOR INFORMATION',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFieldWidget(
+                        width: 325,
+                        controller: name,
+                        label: 'Fullname',
+                      ),
+                      TextFieldWidget(
+                        width: 325,
+                        controller: address,
+                        label: 'Address',
+                      ),
+                      TextFieldWidget(
+                        width: 325,
+                        controller: license,
+                        label: 'License No.',
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextFieldWidget(
+                            width: 150,
+                            controller: expiry,
+                            label: 'Expiry',
+                          ),
+                          TextFieldWidget(
+                            width: 150,
+                            controller: gender,
+                            label: 'Gender',
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 150,
+                            child: RadioListTile<String>(
+                              title: const Text(
+                                'Prof',
+                                style: TextStyle(
+                                  fontFamily: 'Bold',
                                 ),
-                                const Text(
-                                  'VIOLATOR INFORMATION',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                TextFieldWidget(
-                                  width: 325,
-                                  controller: name,
-                                  label: 'Fullname',
-                                ),
-                                TextFieldWidget(
-                                  width: 325,
-                                  controller: address,
-                                  label: 'Address',
-                                ),
-                                TextFieldWidget(
-                                  width: 325,
-                                  controller: license,
-                                  label: 'License No.',
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    TextFieldWidget(
-                                      width: 150,
-                                      controller: expiry,
-                                      label: 'Expiry',
-                                    ),
-                                    TextFieldWidget(
-                                      width: 150,
-                                      controller: gender,
-                                      label: 'Gender',
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 150,
-                                      child: RadioListTile<String>(
-                                        title: const Text(
-                                          'Prof',
-                                          style: TextStyle(
-                                            fontFamily: 'Bold',
-                                          ),
-                                        ),
-                                        value: 'Prof',
-                                        groupValue: _selectedOption,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _selectedOption = value!;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 200,
-                                      child: RadioListTile<String>(
-                                        title: const Text(
-                                          'Non Prof',
-                                          style: TextStyle(
-                                            fontFamily: 'Bold',
-                                          ),
-                                        ),
-                                        value: 'Non Prof',
-                                        groupValue: _selectedOption,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _selectedOption = value!;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  child: RadioListTile<String>(
-                                    title: const Text(
-                                      'SP',
-                                      style: TextStyle(
-                                        fontFamily: 'Bold',
-                                      ),
-                                    ),
-                                    value: 'SP',
-                                    groupValue: _selectedOption,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _selectedOption = value!;
-                                      });
-                                    },
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    TextFieldWidget(
-                                      width: 150,
-                                      controller: bday,
-                                      label: 'Birthday',
-                                    ),
-                                    TextFieldWidget(
-                                      width: 150,
-                                      controller: nationality,
-                                      label: 'Nationality',
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    TextFieldWidget(
-                                      width: 150,
-                                      controller: height,
-                                      label: 'Height',
-                                    ),
-                                    TextFieldWidget(
-                                      width: 150,
-                                      controller: weight,
-                                      label: 'Weight',
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                              ],
+                              ),
+                              value: 'Prof',
+                              groupValue: _selectedOption,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedOption = value!;
+                                });
+                              },
                             ),
                           ),
+                          SizedBox(
+                            width: 200,
+                            child: RadioListTile<String>(
+                              title: const Text(
+                                'Non Prof',
+                                style: TextStyle(
+                                  fontFamily: 'Bold',
+                                ),
+                              ),
+                              value: 'Non Prof',
+                              groupValue: _selectedOption,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedOption = value!;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        child: RadioListTile<String>(
+                          title: const Text(
+                            'SP',
+                            style: TextStyle(
+                              fontFamily: 'Bold',
+                            ),
+                          ),
+                          value: 'SP',
+                          groupValue: _selectedOption,
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedOption = value!;
+                            });
+                          },
                         ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextFieldWidget(
+                            width: 150,
+                            controller: bday,
+                            label: 'Birthday',
+                          ),
+                          TextFieldWidget(
+                            width: 150,
+                            controller: nationality,
+                            label: 'Nationality',
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextFieldWidget(
+                            inputType: TextInputType.number,
+                            width: 150,
+                            controller: height,
+                            label: 'Height (cm)',
+                          ),
+                          TextFieldWidget(
+                            inputType: TextInputType.number,
+                            width: 150,
+                            controller: weight,
+                            label: 'Weight (kg)',
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
 
                       const SizedBox(height: 30),
 
 //VEHICLE INFORMATION
-                      Container(
-                        alignment: Alignment.topCenter,
-                        height: 490, // Adjusted height of the outer container
-                        width: 380,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              const Text(
-                                'VEHICLE INFORMATION',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              TextFieldWidget(
-                                width: 325,
-                                controller: plateno,
-                                label: 'Plate No.',
-                              ),
-                              TextFieldWidget(
-                                width: 325,
-                                controller: owner,
-                                label: 'Owner',
-                              ),
-                              TextFieldWidget(
-                                width: 325,
-                                controller: owneraddress,
-                                label: 'Owner Address',
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  TextFieldWidget(
-                                    width: 150,
-                                    controller: maker,
-                                    label: 'Maker',
-                                  ),
-                                  TextFieldWidget(
-                                    width: 150,
-                                    controller: color,
-                                    label: 'Color',
-                                  ),
-                                ],
-                              ),
-                              TextFieldWidget(
-                                width: 325,
-                                controller: model,
-                                label: 'Model',
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                            ],
-                          ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        'VEHICLE INFORMATION',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFieldWidget(
+                        width: 325,
+                        controller: plateno,
+                        label: 'Plate No.',
+                      ),
+                      TextFieldWidget(
+                        width: 325,
+                        controller: owner,
+                        label: 'Owner',
+                      ),
+                      TextFieldWidget(
+                        width: 325,
+                        controller: owneraddress,
+                        label: 'Owner Address',
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextFieldWidget(
+                            width: 150,
+                            controller: maker,
+                            label: 'Maker',
+                          ),
+                          TextFieldWidget(
+                            width: 150,
+                            controller: color,
+                            label: 'Color',
+                          ),
+                        ],
+                      ),
+                      TextFieldWidget(
+                        width: 325,
+                        controller: model,
+                        label: 'Model',
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
 
                       const SizedBox(height: 30),
 
 //TRAFFIC VIOLATION
-                      Container(
-                        alignment: Alignment.topCenter,
-                        height: 200, // Adjusted height of the outer container
-                        width: 380,
-                        child: Stack(
-                          alignment: Alignment.topLeft,
-                          children: [
-                            Positioned(
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              bottom:
-                                  0, // Adjusted to occupy the full height of the outer container
-                              child: Container(
-                                // Adjusted height to fill the available space in the Stack
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 236, 234, 234),
-                                  border: Border.all(
-                                    color: const Color.fromARGB(255, 0, 0, 0),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom:
+                            0, // Adjusted to occupy the full height of the outer container
+                        child: Container(
+                          // Adjusted height to fill the available space in the Stack
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 236, 234, 234),
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                              width: 1,
                             ),
-                            const Positioned(
-                              top:
-                                  10, // Adjust this value to control the vertical positioning of the text
-                              left: 0,
-                              right: 0,
-                              child: Center(
-                                child: Text(
-                                  'TRAFFIC VIOLATION',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: 35, // Adjusted spacing from the top to 50
-                              left: 10, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Violation #1',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 40, // Adjusted spacing from the top to 50
-                              left:
-                                  90, // Adjusted spacing from the left to after the right edge of the blue box
-                              child: Container(
-                                height: 30,
-                                width: 280,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(159, 49, 49, 49),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: 75, // Adjusted spacing from the top to 50
-                              left: 10, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Violation #2',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 80, // Adjusted spacing from the top to 50
-                              left:
-                                  90, // Adjusted spacing from the left to after the right edge of the blue box
-                              child: Container(
-                                height: 30,
-                                width: 280,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(159, 49, 49, 49),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: 115, // Adjusted spacing from the top to 50
-                              left: 10, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Violation #3',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 120, // Adjusted spacing from the top to 50
-                              left:
-                                  90, // Adjusted spacing from the left to after the right edge of the blue box
-                              child: Container(
-                                height: 30,
-                                width: 280,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(159, 49, 49, 49),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: 155, // Adjusted spacing from the top to 50
-                              left: 10, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Add More+',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Color.fromARGB(220, 39, 150, 10),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Center(
+                        child: Text(
+                          'TRAFFIC VIOLATION',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
 
-                      const SizedBox(height: 30),
+                      SizedBox(
+                          height: 275,
+                          width: double.infinity,
+                          child: ListView(
+                            children: violations.map((violation) {
+                              return SizedBox(
+                                width: 300,
+                                height: 35,
+                                child: CheckboxListTile(
+                                  title: Text(violation),
+                                  value: selectedViolations[violation],
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      selectedViolations[violation] = value!;
+                                    });
+                                  },
+                                ),
+                              );
+                            }).toList(),
+                          )),
+
+                      const SizedBox(height: 10),
 
 //MOBILE NUMBER
-                      Container(
-                        alignment: Alignment.topCenter,
-                        height: 80, // Adjusted height of the outer container
-                        width: 380,
-                        child: Stack(
-                          alignment: Alignment.topLeft,
-                          children: [
-                            Positioned(
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              bottom:
-                                  0, // Adjusted to occupy the full height of the outer container
-                              child: Container(
-                                // Adjusted height to fill the available space in the Stack
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 236, 234, 234),
-                                  border: Border.all(
-                                    color: const Color.fromARGB(255, 0, 0, 0),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: 20, // Adjusted spacing from the top to 50
-                              left: 10, // Adjusted spacing from the left to 20
-                              child: SizedBox(
-                                height: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Mobile Number',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 25, // Adjusted spacing from the top to 50
-                              left:
-                                  100, // Adjusted spacing from the left to after the right edge of the blue box
-                              child: Container(
-                                height: 30,
-                                width: 270,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color:
-                                        const Color.fromARGB(159, 49, 49, 49),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      TextFieldWidget(
+                        inputType: TextInputType.number,
+                        controller: number,
+                        label: 'Mobile Number',
                       ),
 
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 25),
 
 //NEXT BUTTON
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black, // Set border color to black
-                            width: 2, // Adjust the border width as needed
-                          ),
-                          // Adjust border radius as needed
-                        ),
-                        child: MaterialButton(
-                          minWidth: 250,
-                          height: 100,
-                          color: Colors.blue,
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const SignaturePage()));
-                          },
-                          elevation: 5,
-                          child: const Text(
-                            'NEXT',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w300,
-                              letterSpacing: 2.5,
-                            ),
-                          ),
-                        ),
+                      ButtonWidget(
+                        label: 'NEXT',
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const SignaturePage()));
+                        },
                       ),
                     ],
                   ),
