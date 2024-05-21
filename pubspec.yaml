@@ -45,6 +45,9 @@ dependencies:
   google_ml_kit: ^0.7.3
   image_picker: ^0.8.4+9
   image_cropper:
+  widgets_to_image:
+  image_gallery_saver:
+  screenshot:
 
 dev_dependencies:
   flutter_test:
