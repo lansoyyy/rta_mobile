@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rta_mobile/screens/signature_page.dart';
+import 'package:rta_mobile/utils/data.dart';
 import 'package:rta_mobile/widgets/button_widget.dart';
 import 'package:rta_mobile/widgets/textfield_widget.dart';
 
 class IssueTicketScreen extends StatefulWidget {
-  const IssueTicketScreen({super.key});
+  Map data;
+
+  IssueTicketScreen({
+    super.key,
+    required this.data,
+  });
 
   @override
   State<IssueTicketScreen> createState() => _IssueTicketScreenState();
@@ -30,29 +36,29 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
   final color = TextEditingController();
   final number = TextEditingController();
   String _selectedOption = 'Prof';
-  String selectedViolation = 'Sample 1';
-
-  final List<String> violations = [
-    "Speeding",
-    "Running a red light",
-    "Illegal parking",
-    "Not wearing a seatbelt",
-    "Using a mobile phone while driving",
-    "Driving without a license",
-    "Driving under the influence",
-    "Reckless driving",
-  ];
 
   // Map to keep track of which violations are selected
-  final Map<String, bool> selectedViolations = {};
+  Map<String, bool> checkedValues = {};
 
   @override
   void initState() {
     super.initState();
-    // Initialize all violations as not selected
     for (var violation in violations) {
-      selectedViolations[violation] = false;
+      checkedValues[violation.code] = false;
     }
+
+    setState(() {
+      name.text = widget.data['name'];
+      gender.text = widget.data['gender'];
+      nationality.text = widget.data['nationality'];
+      address.text = widget.data['address'];
+      license.text = widget.data['licenseno'];
+      expiry.text = widget.data['expirationdate'];
+      bday.text = widget.data['bday'];
+      weight.text = widget.data['weight'];
+      height.text = widget.data['height'];
+      // bloodtype.text = widget.data['bloodtype'];
+    });
   }
 
   @override
@@ -561,22 +567,39 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                       SizedBox(
                           height: 275,
                           width: double.infinity,
-                          child: ListView(
-                            children: violations.map((violation) {
+                          child: ListView.builder(
+                            itemCount: violations.length,
+                            itemBuilder: (context, index) {
+                              var violation = violations[index];
                               return SizedBox(
                                 width: 300,
-                                height: 35,
+                                height: 75,
                                 child: CheckboxListTile(
-                                  title: Text(violation),
-                                  value: selectedViolations[violation],
+                                  title: Text(
+                                    '${violation.code} - ${violation.description}',
+                                    style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      color: Colors.grey,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    'Fine: ${violation.fines.values.elementAt(0)}',
+                                    style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      color: Colors.green,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                  value: checkedValues[violation.code],
                                   onChanged: (bool? value) {
                                     setState(() {
-                                      selectedViolations[violation] = value!;
+                                      checkedValues[violation.code] = value!;
                                     });
                                   },
                                 ),
                               );
-                            }).toList(),
+                            },
                           )),
 
                       const SizedBox(height: 10),
@@ -594,8 +617,41 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                       ButtonWidget(
                         label: 'NEXT',
                         onPressed: () {
+                          List vio = [];
+                          for (var violation in violations) {
+                            if (checkedValues[violation.code] == true) {
+                              setState(() {
+                                vio.add({
+                                  'code': violation.code,
+                                  'desc': violation.description,
+                                  'fine': violation.fines.values.elementAt(0),
+                                });
+                              });
+                            }
+                          }
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const SignaturePage()));
+                              builder: (context) => SignaturePage(
+                                    data: {
+                                      'violations': vio,
+                                      'name': name.text,
+                                      'address': address.text,
+                                      'licenseno': license.text,
+                                      'expiry': expiry.text,
+                                      'gender': gender.text,
+                                      'bday': bday.text,
+                                      'nationality': nationality.text,
+                                      'height': height.text,
+                                      'weight': weight.text,
+                                      'plateno': plateno.text,
+                                      'owner': owner.text,
+                                      'owneraddress': owneraddress.text,
+                                      'maker': maker.text,
+                                      'color': color.text,
+                                      'model': model.text,
+                                      'number': number.text,
+                                      'licensetype': _selectedOption,
+                                    },
+                                  )));
                         },
                       ),
                     ],

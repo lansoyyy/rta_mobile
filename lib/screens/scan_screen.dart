@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
-import 'package:image_cropper/image_cropper.dart';
+
 import 'package:image_picker/image_picker.dart';
+import 'package:rta_mobile/screens/issue_a_ticket_screen.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({super.key});
@@ -22,30 +23,11 @@ class _ScanScreenState extends State<ScanScreen> {
   @override
   Widget build(BuildContext context) {
     // Name
-    print(scannedText.split('\n')[1]);
-    // Nationality
-    print(scannedText.split('\n')[3]);
-    // Address
-    print(scannedText.split('\n')[5]);
-    // License No.
-    print(scannedText.split('\n')[8]);
-    // Expiration Date
-    print(scannedText.split('\n')[9]);
-    // Gender
-    print(scannedText.split('\n')[13]);
-    // Bday
-    print(scannedText.split('\n')[15]);
-    // Weight kg
-    print(scannedText.split('\n')[17]);
-    // Height cm
-    print(scannedText.split('\n')[19]);
-    // Bloodtype
-    print(scannedText.split('\n')[24]);
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Text Recognition example"),
+        title: const Text("Scan License"),
       ),
       body: Center(
           child: SingleChildScrollView(
@@ -161,27 +143,26 @@ class _ScanScreenState extends State<ScanScreen> {
       scannedText = "Error occured while scanning";
       setState(() {});
     }
+
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => IssueTicketScreen(
+              data: {
+                'name': scannedText.split('\n')[5],
+                'nationality': scannedText.split('\n')[7],
+                'address': scannedText.split('\n')[9],
+                'licenseno': scannedText.split('\n')[12],
+                'expirationdate': scannedText.split('\n')[13],
+                'gender': scannedText.split('\n')[17],
+                'bday': scannedText.split('\n')[21],
+                'weight': scannedText.split('\n')[22],
+                'height': scannedText.split('\n')[23],
+                'bloodtype': scannedText.split('\n')[31],
+              },
+            )));
   }
 
   void getRecognisedText(XFile image) async {
-    CroppedFile? croppedFile = await ImageCropper().cropImage(
-      sourcePath: image.path,
-      aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-        CropAspectRatioPreset.ratio3x2,
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio4x3,
-        CropAspectRatioPreset.ratio16x9
-      ],
-      uiSettings: [
-        AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false),
-      ],
-    );
-
-    final inputImage = InputImage.fromFilePath(croppedFile!.path);
+    final inputImage = InputImage.fromFilePath(image.path);
     final textDetector = GoogleMlKit.vision.textDetector();
     RecognisedText recognisedText = await textDetector.processImage(inputImage);
     await textDetector.close();

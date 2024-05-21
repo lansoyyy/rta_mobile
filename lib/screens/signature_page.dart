@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
 
 class SignaturePage extends StatefulWidget {
-  const SignaturePage({super.key});
+  Map data;
+
+  SignaturePage({super.key, required this.data});
 
   @override
   _SignaturePageState createState() => _SignaturePageState();
