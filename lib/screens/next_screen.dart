@@ -85,7 +85,7 @@ class NextScreen extends StatelessWidget {
                                           children: [
                                             Image.asset(
                                               'assets/images/icon1.png',
-                                              height: 130,
+                                              height: 100,
                                               fit: BoxFit.contain,
                                             ),
                                             const SizedBox(width: 10),

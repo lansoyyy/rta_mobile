@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,6 +8,7 @@ import 'package:rta_mobile/screens/issue_a_ticket_screen.dart';
 import 'package:rta_mobile/screens/scan_screen.dart';
 import 'package:rta_mobile/widgets/text_widget.dart';
 import 'package:rta_mobile/widgets/textfield_widget.dart';
+import 'package:rta_mobile/widgets/toast_widget.dart';
 
 class IssueSelectionScreen extends StatefulWidget {
   const IssueSelectionScreen({super.key});
@@ -96,7 +98,41 @@ class _IssueSelectionScreenState extends State<IssueSelectionScreen> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            DocumentSnapshot doc = await FirebaseFirestore
+                                .instance
+                                .collection('Records')
+                                .doc(license.text)
+                                .get();
+
+                            if (doc.exists) {
+                              // await FirebaseFirestore.instance
+                              //     .collection('Classes')
+                              //     .doc(code.text)
+                              //     .update({
+                              //   'students': FieldValue.arrayUnion(
+                              //       [FirebaseAuth.instance.currentUser!.uid]),
+                              // });
+
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => IssueTicketScreen(
+                                        data: {
+                                          'name': doc['name'],
+                                          'nationality': doc['nationality'],
+                                          'address': doc['address'],
+                                          'licenseno': doc['licenseno'],
+                                          'expirationdate': doc['expiry'],
+                                          'gender': doc['gender'],
+                                          'bday': doc['bday'],
+                                          'weight': doc['weight'],
+                                          'height': doc['height'],
+                                          'bloodtype': '',
+                                        },
+                                      )));
+                            } else {
+                              showToast('Record do not exist!');
+                              Navigator.pop(context);
+                            }
                             // Navigator.of(context).push(MaterialPageRoute(
                             //     builder: (context) =>
                             //         const IssueTicketScreen()));

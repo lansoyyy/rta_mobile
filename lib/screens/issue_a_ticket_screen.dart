@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rta_mobile/screens/signature_page.dart';
@@ -190,32 +191,59 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                                   ),
                                 ),
                               ),
-                              Positioned(
-                                left: 39,
-                                top: 0,
-                                child: Container(
-                                  height: 40,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: const Color.fromARGB(255, 220, 220,
-                                          220), // Pale gray color
+                              StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('Tickets')
+                                      .snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                                    if (snapshot.hasError) {
+                                      print(snapshot.error);
+                                      return const Center(child: Text('Error'));
+                                    }
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const Padding(
+                                        padding: EdgeInsets.only(top: 50),
+                                        child: Center(
+                                            child: CircularProgressIndicator(
+                                          color: Colors.black,
+                                        )),
+                                      );
+                                    }
 
-                                      width: 1,
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'TCT ${DateTime.now().year} - 00001',
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color.fromARGB(255, 0, 4, 233),
+                                    final data = snapshot.requireData;
+                                    return Positioned(
+                                      left: 39,
+                                      top: 0,
+                                      child: Container(
+                                        height: 40,
+                                        width: 120,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: const Color.fromARGB(
+                                                255,
+                                                220,
+                                                220,
+                                                220), // Pale gray color
+
+                                            width: 1,
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'TCT ${DateTime.now().year} - ${data.docs.length}',
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color.fromARGB(
+                                                  255, 0, 4, 233),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                                    );
+                                  }),
                               Positioned(
                                 left: 158,
                                 top: 0,
@@ -608,52 +636,78 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                       TextFieldWidget(
                         inputType: TextInputType.number,
                         controller: number,
-                        label: 'Mobile Number',
+                        label: 'Contact Number',
                       ),
 
                       const SizedBox(height: 25),
 
 //NEXT BUTTON
-                      ButtonWidget(
-                        label: 'NEXT',
-                        onPressed: () {
-                          List vio = [];
-                          for (var violation in violations) {
-                            if (checkedValues[violation.code] == true) {
-                              setState(() {
-                                vio.add({
-                                  'code': violation.code,
-                                  'desc': violation.description,
-                                  'fine': violation.fines.values.elementAt(0),
-                                });
-                              });
+                      StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('Tickets')
+                              .snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              print(snapshot.error);
+                              return const Center(child: Text('Error'));
                             }
-                          }
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SignaturePage(
-                                    data: {
-                                      'violations': vio,
-                                      'name': name.text,
-                                      'address': address.text,
-                                      'licenseno': license.text,
-                                      'expiry': expiry.text,
-                                      'gender': gender.text,
-                                      'bday': bday.text,
-                                      'nationality': nationality.text,
-                                      'height': height.text,
-                                      'weight': weight.text,
-                                      'plateno': plateno.text,
-                                      'owner': owner.text,
-                                      'owneraddress': owneraddress.text,
-                                      'maker': maker.text,
-                                      'color': color.text,
-                                      'model': model.text,
-                                      'number': number.text,
-                                      'licensetype': _selectedOption,
-                                    },
-                                  )));
-                        },
-                      ),
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Padding(
+                                padding: EdgeInsets.only(top: 50),
+                                child: Center(
+                                    child: CircularProgressIndicator(
+                                  color: Colors.black,
+                                )),
+                              );
+                            }
+
+                            final data = snapshot.requireData;
+                            return ButtonWidget(
+                              label: 'NEXT',
+                              onPressed: () {
+                                List vio = [];
+                                for (var violation in violations) {
+                                  if (checkedValues[violation.code] == true) {
+                                    setState(() {
+                                      vio.add({
+                                        'code': violation.code,
+                                        'desc': violation.description,
+                                        'fine':
+                                            violation.fines.values.elementAt(0),
+                                      });
+                                    });
+                                  }
+                                }
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => SignaturePage(
+                                          data: {
+                                            'violations': vio,
+                                            'name': name.text,
+                                            'address': address.text,
+                                            'licenseno': license.text,
+                                            'expiry': expiry.text,
+                                            'gender': gender.text,
+                                            'bday': bday.text,
+                                            'nationality': nationality.text,
+                                            'height': height.text,
+                                            'weight': weight.text,
+                                            'plateno': plateno.text,
+                                            'owner': owner.text,
+                                            'owneraddress': owneraddress.text,
+                                            'maker': maker.text,
+                                            'color': color.text,
+                                            'model': model.text,
+                                            'number': number.text,
+                                            'licensetype': _selectedOption,
+                                            'refno':
+                                                'TCT ${DateTime.now().year} - ${data.docs.length}',
+                                          },
+                                        )));
+                              },
+                            );
+                          }),
                     ],
                   ),
                 ),

@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-Future<String> addTicket(
-  List violations,
+Future<String> addRecord(
   name,
   address,
   licenseno,
@@ -13,21 +12,11 @@ Future<String> addTicket(
   nationality,
   height,
   weight,
-  plateno,
-  owner,
-  owneraddress,
-  maker,
-  color,
-  model,
-  number,
-  signature,
-  refno,
 ) async {
-  final docUser = FirebaseFirestore.instance.collection('Tickets').doc();
+  final docUser =
+      FirebaseFirestore.instance.collection('Records').doc(licenseno);
 
   final json = {
-    'refno': refno,
-    'violations': violations,
     'name': name,
     'address': address,
     'licenseno': licenseno,
@@ -37,13 +26,6 @@ Future<String> addTicket(
     'nationality': nationality,
     'height': height,
     'weight': weight,
-    'plateno': plateno,
-    'owner': owner,
-    'owneraddress': owneraddress,
-    'maker': maker,
-    'color': color,
-    'model': model,
-    'number': number,
     'licensetype': licensetype,
     'uid': FirebaseAuth.instance.currentUser!.uid,
     'id': docUser.id,
@@ -51,7 +33,6 @@ Future<String> addTicket(
     'month': DateTime.now().month,
     'year': DateTime.now().year,
     'dateTime': DateTime.now(),
-    'signature': signature,
   };
 
   await docUser.set(json);

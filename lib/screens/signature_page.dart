@@ -2,6 +2,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
 import 'package:rta_mobile/screens/next_screen.dart';
+import 'package:rta_mobile/services/add_record.dart';
 import 'package:rta_mobile/services/add_ticket.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as path;
@@ -141,6 +142,19 @@ class _SignaturePageState extends State<SignaturePage> {
                                 widget.data['model'],
                                 widget.data['number'],
                                 imageURL,
+                                widget.data['refno'],
+                              );
+                              addRecord(
+                                widget.data['name'],
+                                widget.data['address'],
+                                widget.data['licenseno'],
+                                widget.data['expiry'],
+                                widget.data['gender'],
+                                widget.data['licensetype'],
+                                widget.data['bday'],
+                                widget.data['nationality'],
+                                widget.data['height'],
+                                widget.data['weight'],
                               );
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
@@ -194,6 +208,8 @@ class _SignaturePageState extends State<SignaturePage> {
                               } catch (e) {
                                 print(e);
                               }
+
+                              setState(() {});
                             },
                             minWidth: 350,
                             height: 40,
