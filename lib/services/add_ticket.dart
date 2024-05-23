@@ -52,6 +52,7 @@ Future<String> addTicket(
     'year': DateTime.now().year,
     'dateTime': DateTime.now(),
     'signature': signature,
+    'status': 'Standby'
   };
 
   await docUser.set(json);
