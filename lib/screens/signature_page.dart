@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
+import 'package:intl/intl.dart';
 import 'package:rta_mobile/screens/next_screen.dart';
 import 'package:rta_mobile/services/add_record.dart';
 import 'package:rta_mobile/services/add_ticket.dart';
@@ -9,14 +10,19 @@ import 'package:path/path.dart' as path;
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:io';
-
+import 'package:printing/printing.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 import 'package:rta_mobile/widgets/toast_widget.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:pdf/pdf.dart';
 
 class SignaturePage extends StatefulWidget {
   Map data;
 
-  SignaturePage({super.key, required this.data});
+  String myname;
+
+  SignaturePage({super.key, required this.data, required this.myname});
 
   @override
   _SignaturePageState createState() => _SignaturePageState();
@@ -161,6 +167,8 @@ class _SignaturePageState extends State<SignaturePage> {
                                       builder: (context) =>
                                           const NextScreen()));
                               showToast('Ticket recorded succesfully!');
+
+                              _printTicket();
                             },
                             minWidth: 350,
                             height: 40,
@@ -202,14 +210,15 @@ class _SignaturePageState extends State<SignaturePage> {
                                   setState(() async {
                                     imageURL =
                                         await taskSnapshot.ref.getDownloadURL();
-                                    hasUploaded = true;
                                   });
                                 } else {}
                               } catch (e) {
                                 print(e);
                               }
 
-                              setState(() {});
+                              setState(() {
+                                hasUploaded = true;
+                              });
                             },
                             minWidth: 350,
                             height: 40,
@@ -229,5 +238,61 @@ class _SignaturePageState extends State<SignaturePage> {
         ),
       ),
     );
+  }
+
+  Future<void> _printTicket() async {
+    final pdf = pw.Document();
+
+    // Current date and time
+    final String currentDateTime =
+        DateFormat('yyyy-MM-dd HH:mm: aa').format(DateTime.now());
+
+    // Dummy data for the ticket
+    String referenceNumber = widget.data['refno'];
+    String violatorName = widget.data['name'];
+    String licenseNo = widget.data['licenseno'];
+    String licensePlate = widget.data['plateno'];
+    String carmodel = widget.data['model'];
+
+    String officerName = widget.myname;
+    String penalty = 'P${widget.data['violations'].fold(0.0, (prev, element) {
+      String fine = element['fine'].replaceAll(',', ''); // Remove commas
+      return prev + double.parse(fine);
+    })}';
+
+    pdf.addPage(
+      pw.Page(
+        pageFormat: PdfPageFormat.roll57,
+        build: (pw.Context context) {
+          return pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Text('Traffic Violation Ticket',
+                  style: pw.TextStyle(
+                      fontSize: 24, fontWeight: pw.FontWeight.bold)),
+              pw.SizedBox(height: 20),
+              pw.Text('Reference Number: $referenceNumber'),
+              pw.Text('Date & Time: $currentDateTime'),
+              pw.SizedBox(height: 10),
+              pw.Text('Violator Name: $violatorName'),
+              pw.Text('License No: $licenseNo'),
+              pw.Text('Car Model: $carmodel'),
+              pw.Text('License Plate: $licensePlate'),
+              pw.Text('Violations:'),
+              for (int i = 0; i < widget.data['violations'].length; i++)
+                pw.Text('- ${widget.data['violations'][i]['desc']}'),
+              pw.Text('Issuing Officer: $officerName'),
+              pw.SizedBox(height: 20),
+              pw.Text('Penalty: $penalty',
+                  style: pw.TextStyle(
+                      fontSize: 18, fontWeight: pw.FontWeight.bold)),
+            ],
+          );
+        },
+      ),
+    );
+
+    await Printing.layoutPdf(
+        onLayout: (PdfPageFormat format) async => pdf.save());
   }
 }
