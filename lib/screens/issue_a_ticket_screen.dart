@@ -103,15 +103,12 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
-              height: double.infinity,
-              width: double.infinity,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
                       Container(
-                        height: 2000,
                         width: 500,
                         decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 236, 234, 234),
@@ -448,7 +445,7 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                             Row(
                               children: [
                                 SizedBox(
-                                  width: 150,
+                                  width: 175,
                                   child: RadioListTile<String>(
                                     title: const Text(
                                       'Prof',
@@ -466,15 +463,15 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 200,
+                                  width: 150,
                                   child: RadioListTile<String>(
                                     title: const Text(
-                                      'Non Prof',
+                                      'SP',
                                       style: TextStyle(
                                         fontFamily: 'Bold',
                                       ),
                                     ),
-                                    value: 'Non Prof',
+                                    value: 'SP',
                                     groupValue: _selectedOption,
                                     onChanged: (value) {
                                       setState(() {
@@ -488,12 +485,12 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                             SizedBox(
                               child: RadioListTile<String>(
                                 title: const Text(
-                                  'SP',
+                                  'Non Prof',
                                   style: TextStyle(
                                     fontFamily: 'Bold',
                                   ),
                                 ),
-                                value: 'SP',
+                                value: 'Non Prof',
                                 groupValue: _selectedOption,
                                 onChanged: (value) {
                                   setState(() {
@@ -502,6 +499,7 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                                 },
                               ),
                             ),
+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -595,30 +593,6 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
                               height: 20,
                             ),
 
-                            const SizedBox(height: 30),
-
-                            //TRAFFIC VIOLATION
-                            Positioned(
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              bottom:
-                                  0, // Adjusted to occupy the full height of the outer container
-                              child: Container(
-                                // Adjusted height to fill the available space in the Stack
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 236, 234, 234),
-                                  border: Border.all(
-                                    color: const Color.fromARGB(255, 0, 0, 0),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
                             const Center(
                               child: Text(
                                 'TRAFFIC VIOLATION',
@@ -636,7 +610,7 @@ class _IssueTicketScreenState extends State<IssueTicketScreen> {
 
                             SizedBox(
                                 height: 275,
-                                width: double.infinity,
+                                width: 300,
                                 child: ListView.builder(
                                   itemCount: violations.length,
                                   itemBuilder: (context, index) {
