@@ -98,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             const SizedBox(height: 5),
                             TextFieldWidget(
+                              textCapitalization: TextCapitalization.none,
                               controller: username,
                               label: 'Username',
                             ),

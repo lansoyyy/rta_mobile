@@ -49,6 +49,7 @@ dependencies:
   image_gallery_saver:
   screenshot:
   printing: ^5.9.3
+  bluetooth_print:
 
 dev_dependencies:
   flutter_test:

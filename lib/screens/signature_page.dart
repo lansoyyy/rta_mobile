@@ -1,7 +1,9 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
 import 'package:intl/intl.dart';
+
 import 'package:rta_mobile/screens/next_screen.dart';
 import 'package:rta_mobile/services/add_record.dart';
 import 'package:rta_mobile/services/add_ticket.dart';
@@ -178,12 +180,15 @@ class _SignaturePageState extends State<SignaturePage> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: const Text(
-                              'ENTER',
+                              'PRINT TICKET',
                               style: TextStyle(color: Colors.white),
                             ),
                           )
                         : MaterialButton(
                             onPressed: () async {
+                              setState(() {
+                                hasUploaded = true;
+                              });
                               try {
                                 // Capture the screenshot as a Uint8List
                                 Uint8List? bytes =
@@ -215,10 +220,6 @@ class _SignaturePageState extends State<SignaturePage> {
                               } catch (e) {
                                 print(e);
                               }
-
-                              setState(() {
-                                hasUploaded = true;
-                              });
                             },
                             minWidth: 350,
                             height: 40,

@@ -5,6 +5,7 @@ import 'package:google_ml_kit/google_ml_kit.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:rta_mobile/screens/issue_a_ticket_screen.dart';
+import 'package:rta_mobile/widgets/toast_widget.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({super.key});
@@ -144,21 +145,36 @@ class _ScanScreenState extends State<ScanScreen> {
       setState(() {});
     }
 
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => IssueTicketScreen(
-              data: {
-                'name': scannedText.split('\n')[5],
-                'nationality': scannedText.split('\n')[7],
-                'address': scannedText.split('\n')[9],
-                'licenseno': scannedText.split('\n')[12],
-                'expirationdate': scannedText.split('\n')[13],
-                'gender': scannedText.split('\n')[17],
-                'bday': scannedText.split('\n')[21],
-                'weight': scannedText.split('\n')[22],
-                'height': scannedText.split('\n')[23],
-                'bloodtype': scannedText.split('\n')[31],
-              },
-            )));
+    setState(() {});
+
+    try {
+      List<String> lines = scannedText.split('\n');
+
+      // Check if the list has enough elements before accessing them
+      if (lines.length > 31) {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => IssueTicketScreen(
+            data: {
+              'name': lines[5],
+              'nationality': lines[7],
+              'address': lines[9],
+              'licenseno': lines[12],
+              'expirationdate': lines[13],
+              'gender': lines[17],
+              'bday': lines[21],
+              'weight': lines[22],
+              'height': lines[23],
+              'bloodtype': lines[31],
+            },
+          ),
+        ));
+      } else {
+        // Show toast if not enough lines
+        showToast('Please try again!');
+      }
+    } catch (e) {
+      showToast('Please try again!');
+    }
   }
 
   void getRecognisedText(XFile image) async {
