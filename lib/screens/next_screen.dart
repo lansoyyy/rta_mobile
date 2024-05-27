@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:rta_mobile/screens/home_screen.dart';
 import 'package:rta_mobile/screens/issue_a_ticket_screen.dart';
 import 'package:rta_mobile/screens/issue_selection_screen.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class NextScreen extends StatelessWidget {
   const NextScreen({super.key});
@@ -309,7 +310,10 @@ class NextScreen extends StatelessWidget {
                         minWidth: 350,
                         height: 60,
                         color: const Color.fromARGB(255, 255, 255, 255),
-                        onPressed: () {},
+                        onPressed: () async {
+                          await launchUrlString(
+                              'https://www.facebook.com/rta.cdoc?mibextid=ZbWKwL');
+                        },
                         elevation: 5,
                         child: const Text(
                           'RULES REGULATIONS & PENALTIES',
@@ -333,7 +337,10 @@ class NextScreen extends StatelessWidget {
                         minWidth: 350,
                         height: 60,
                         color: const Color.fromARGB(255, 255, 255, 255),
-                        onPressed: () {},
+                        onPressed: () async {
+                          await launchUrlString(
+                              'https://mmda.gov.ph/images/pdf/Home/REVISED-FINES-and-PENALTIES-by-alphabet-new-4-11-2019-01.pdf');
+                        },
                         elevation: 5,
                         child: const Text(
                           'RTA INFORMATION',
