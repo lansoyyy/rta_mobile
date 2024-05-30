@@ -150,28 +150,22 @@ class _ScanScreenState extends State<ScanScreen> {
     try {
       List<String> lines = scannedText.split('\n');
 
-      // Check if the list has enough elements before accessing them
-      if (lines.length > 31) {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => IssueTicketScreen(
-            data: {
-              'name': lines[5],
-              'nationality': lines[7],
-              'address': lines[9],
-              'licenseno': lines[12],
-              'expirationdate': lines[13],
-              'gender': lines[17],
-              'bday': lines[21],
-              'weight': lines[22],
-              'height': lines[23],
-              'bloodtype': lines[31],
-            },
-          ),
-        ));
-      } else {
-        // Show toast if not enough lines
-        showToast('Please try again!');
-      }
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => IssueTicketScreen(
+          data: {
+            'name': getValue(lines, 5),
+            'nationality': getValue(lines, 7),
+            'address': getValue(lines, 9),
+            'licenseno': getValue(lines, 12),
+            'expirationdate': getValue(lines, 13),
+            'gender': getValue(lines, 17),
+            'bday': getValue(lines, 21),
+            'weight': getValue(lines, 22),
+            'height': getValue(lines, 23),
+            'bloodtype': getValue(lines, 31),
+          },
+        ),
+      ));
     } catch (e) {
       showToast('Please try again!');
     }
@@ -195,5 +189,13 @@ class _ScanScreenState extends State<ScanScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  String getValue(List<String> list, int index) {
+    if (index >= 0 && index < list.length) {
+      return list[index];
+    } else {
+      return '';
+    }
   }
 }
